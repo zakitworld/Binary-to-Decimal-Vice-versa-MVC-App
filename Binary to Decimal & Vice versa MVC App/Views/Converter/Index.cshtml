@@ -1,0 +1,53 @@
+﻿@model Binary_to_Decimal___Vice_versa_MVC_App.Models.ConverterModel
+
+@{
+    ViewData["Title"] = "Binary-Decimal Converter";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="PerformConversion" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="ConversionType" class="form-label">Conversion Type</label>
+                    <select asp-for="ConversionType" class="form-select">
+                        <option value="BinaryToDecimal">Binary to Decimal</option>
+                        <option value="DecimalToBinary">Decimal to Binary</option>
+                    </select>
+                    <span asp-validation-for="ConversionType" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="InputValue" class="form-label">Enter Value</label>
+                    <input asp-for="InputValue" class="form-control" />
+                    <span asp-validation-for="InputValue" class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                    <button type="submit" formaction="@Url.Action("Clear")" class="btn btn-secondary">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Result))
+    {
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Conversion Result</h5>
+                        <p class="card-text">@Model.Result</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
